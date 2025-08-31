@@ -8,11 +8,13 @@
 
 #define BOARD_SIZE 3
 #define CELL_SIZE 20
+#define CIRCLE_R = 8
 
 uint8_t board[BOARD_SIZE][BOARD_SIZE] = {0};   // 0 = tomm, 1 = X, 2 = O
 bool x_turn = true;                             // sann om det är X tur annars false
 bool game_over = false;                        // self-explanatory
 uint16_t pressedKeys = 0;
+
 
 bool check_win_condition() {
     // rows
@@ -56,8 +58,8 @@ int main(void) {
     ascii_gotoxy(1,1);
 
     char *s;
-    char test1[] = "Alfanumerisk ";
-    char test2[] = "Display - 8--D";
+    char test1[] = "Välkommen! ";
+    char test2[] = "X börjar";
 
     s = test1;
     while (*s)
@@ -118,10 +120,10 @@ int main(void) {
         }
 
         // här ritas själva brädet, dynamisk storlek såklart ;)
-        line_t v1 = { x0 + cell, y0, x0 + cell, y0 + 3*cell };
-        line_t v2 = { x0 + 2*cell, y0, x0 + 2*cell, y0 + 3*cell };
-        line_t h1 = { x0, y0 + cell, x0 + 3*cell, y0 + cell };
-        line_t h2 = { x0, y0 + 2*cell, x0 + 3*cell, y0 + 2*cell };
+        line_t v1 = { x0 + cell, y0, x0 + cell, y0 + 3 * cell };
+        line_t v2 = { x0 + 2 * cell, y0, x0 + 2 * cell, y0 + 3 * cell };
+        line_t h1 = { x0, y0 + cell, x0 + 3 * cell, y0 + cell };
+        line_t h2 = { x0, y0 + 2 * cell, x0 + 3 * cell, y0 + 2 * cell };
         draw_line(&v1);  
         draw_line(&v2);
         draw_line(&h1);
@@ -145,7 +147,7 @@ int main(void) {
                     // O
                     uint8_t centerX = cx0 + cell / 2;
                     uint8_t centerY = cy0 + cell / 2;
-                    circle_t circ = { centerX, centerY, 8 };  //8 i radie
+                    circle_t circ = { centerX, centerY, CIRCLE_R };  //8 i radie
                     draw_circle(&circ);
                 }
             }
